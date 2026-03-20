@@ -43,20 +43,17 @@ test("should update a task", async () => {
 });
 
 test("should delete task", async () => {
-  // Criamos uma task para poder deletar
+  // Create a task so we can delete it
   const create = await request(app)
     .post("/tasks")
     .send({ task: "Task para deletar" });
 
-  // Pegamos o id da task criada
   const id = create.body.newTask.id;
 
-  // Fazemos a requisição DELETE
   const response = await request(app).delete(`/tasks/${id}`);
 
-  // Espera status 200
+  // If it returns 200 it's deleted
   expect(response.statusCode).toBe(200);
 
-  // Verifica se a mensagem retornada está correta
   expect(response.body.message).toBe("Task deleted");
 });
